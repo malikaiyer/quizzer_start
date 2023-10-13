@@ -1,3 +1,6 @@
+/* eslint-disable jest/no-conditional-expect */
+/* eslint-disable testing-library/no-render-in-setup */
+/* eslint-disable testing-library/prefer-presence-queries */
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Quiz } from "../interfaces/quiz";
@@ -56,7 +59,7 @@ describe("Quizzer Tests", () => {
             screen.queryByText("What is 2+2?", { exact: false })
         ).toBeInTheDocument();
         for (let i = 0; i < QUIZZES[1].questionList.length; i++) {
-            if (QUIZZES[1].questionList[i].published == true) {
+            if (QUIZZES[1].questionList[i].published === true) {
                 expect(
                     screen.queryByText(QUIZZES[1].questionList[i].body, {
                         exact: false
@@ -75,6 +78,7 @@ describe("Quizzer Tests", () => {
     test("Users can enter or choose an answer for a quiz question, and be told if they are correct", () => {
         const text = screen.getByText("Simple_Questions");
         text.click();
+        // eslint-disable-next-line testing-library/prefer-presence-queries
         expect(screen.queryByText("Exit")).toBeInTheDocument();
         expect(
             screen.queryByText("What is 2+2?", { exact: false })
@@ -225,7 +229,7 @@ describe("Quizzer Tests", () => {
         expect(afterOrder[1]).toHaveTextContent("What is 2+2?");
     });
 
-    test("Quiz questions can be of AT LEAST two types: a short answer question or multiple choice question ", () => {
+    test("Quiz questions can be of AT LEAST two types: a short answer question or multiple choice question", () => {
         const text = screen.getByText("Simple_Questions");
         text.click();
 

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Question, QuestionType } from "../interfaces/question";
+import { Question } from "../interfaces/question";
 
 import "./QuestionEdit.css";
+import { Button, Form } from "react-bootstrap";
 
 export const QuestionEdit = ({
     index,
@@ -10,7 +11,14 @@ export const QuestionEdit = ({
     editQuestion,
     removeQuestion,
     swapQuestion
-}: {}) => {
+}: {
+    index: number; 
+    lastIndex: number;
+    question: Question;
+    editQuestion: (questionId: number, newQuestion: Question) => void;
+    removeQuestion: (questionId: number) => void;
+    swapQuestion: (idx1: number, idx2: number) => void;
+}) => {
     const [a, b] = useState<number>(
         question.options.findIndex((s: string) => question.expected === s)
     );
@@ -111,7 +119,7 @@ export const QuestionEdit = ({
                                 <Form.Select
                                     className="type_dropdown"
                                     value={question.type}
-                                    onChange={handleSwitch}
+                                    onChange={switchMulti}
                                 >
                                     <option
                                         data-testid={

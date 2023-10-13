@@ -31,6 +31,13 @@ export const Quizzer = () => {
     }
 
     function addQuiz(title: string, body: string) {
+        const newQuiz: Quiz = {
+            id: quizzes.length + 1,
+            title,
+            body,
+            published: false, // Set the published property as desired
+            questionList: [], // Initialize with an empty question list
+        }
         setQuizzes([...quizzes, newQuiz]);
     }
 

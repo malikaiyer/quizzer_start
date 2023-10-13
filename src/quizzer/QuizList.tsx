@@ -10,7 +10,12 @@ export const QuizList = ({
     editQuiz,
     deleteQuiz,
     showModal
-}: {}) => {
+}: {
+    quizzes: Quiz[];
+    editQuiz: (id: number, quiz: Quiz) => void;
+    deleteQuiz: (id: number) => void;
+    showModal: () => void;
+}) => {
     const [displayId, setDisplayId] = useState<null | number>(null);
 
     const handleQuizView = (id: number) => {
@@ -38,17 +43,15 @@ export const QuizList = ({
                 </>
             )}
             {quizzes.map((quiz: Quiz) => {
-                if (displayId === quiz.id) {
-                    return (
-                        <QuizView
-                            key={quiz.id}
-                            quiz={quiz}
-                            editQuiz={editQuiz}
-                            deleteQuiz={deleteQuiz}
-                            resetView={resetQuizView}
-                        ></QuizView>
-                    );
-                }
+                return displayId === quiz.id ? (
+                    <QuizView 
+                        key={quiz.id}
+                        quiz={quiz}
+                        editQuiz={editQuiz}
+                        deleteQuiz={deleteQuiz}
+                        resetView={resetQuizView}
+                    />
+                ) : null;
             })}
         </div>
     );
